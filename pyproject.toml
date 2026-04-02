@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kalman_filter"
+version = "0.0.1"
+authors = [
+  { name = "Ryuto Yoshida" },
+]
+description = "Configurable linear Kalman filter package with typed parameter containers."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy",
+]
+
+[project.urls]
+Homepage = "https://github.com/ry-yoshida-private/KalmanFilter"
+"Bug Tracker" = "https://github.com/ry-yoshida-private/KalmanFilter/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+kalman_filter = ["py.typed"]
