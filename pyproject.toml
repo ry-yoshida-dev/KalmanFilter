@@ -21,8 +21,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ry-yoshida-private/KalmanFilter"
-"Bug Tracker" = "https://github.com/ry-yoshida-private/KalmanFilter/issues"
+Homepage = "https://github.com/ry-yoshida-dev/KalmanFilter"
+"Bug Tracker" = "https://github.com/ry-yoshida-dev/KalmanFilter/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
