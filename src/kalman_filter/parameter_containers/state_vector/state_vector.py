@@ -62,9 +62,9 @@ class StateVector(KFParameter):
             Predicted state vector.
         """
         if B is not None and u is not None:
-            x = F @ self.value + B @ u
+            x = F.value @ self.value + B.value @ u.value
         else:
-            x = F @ self.value
+            x = F.value @ self.value
         return StateVector(
             value=x, 
             format=self.format, 
@@ -88,7 +88,7 @@ class StateVector(KFParameter):
             Innovation vector that is difference of measurement vector and the predicted measurement vector.
             innovation is computed in MeasurementVector class.
         """
-        self.value += K @ innovation
+        self.value += K.value @ innovation
     
     @classmethod
     def register_zero_vec_from_format(

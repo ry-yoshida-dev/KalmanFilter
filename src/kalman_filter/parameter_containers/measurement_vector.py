@@ -80,7 +80,7 @@ class MeasurementVector(KFParameter):
         np.ndarray
             Innovation vector.
         """
-        return self.value - H @ x
+        return self.value - H.state2measurement(x)
     
     def update(
         self, 
@@ -97,7 +97,7 @@ class MeasurementVector(KFParameter):
         x: StateVector
             State vector.
         """
-        self.value = H @ x
+        self.value = H.state2measurement(x)
 
     def __setitem__(
         self, 

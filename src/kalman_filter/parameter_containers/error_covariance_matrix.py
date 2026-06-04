@@ -51,9 +51,9 @@ class ErrorCovarianceMatrix(KFParameter):
             Predicted error covariance matrix.
         """
         if G is None:
-            value = F @ self.value @ F.T + Q.value
-        else:       
-            value = F @ self.value @ F.T + G @ Q @ G.T
+            value = F.value @ self.value @ F.T + Q.value
+        else:
+            value = F.value @ self.value @ F.T + G.value @ Q.value @ G.T
         value *= alpha
         return ErrorCovarianceMatrix(value=value)
 
@@ -78,10 +78,10 @@ class ErrorCovarianceMatrix(KFParameter):
             If True, use correlated noise update. Default is False.
         """
         if is_correlated_noise:
-            value = self.value - K @ (H @ self.value)
+            value = self.value - K.value @ (H.value @ self.value)
         else:
-            I_KH = np.eye(K.shape[0]) - K @ H
-            value = I_KH @ self.value @ I_KH.T + K @ R @ K.T
+            I_KH = np.eye(K.shape[0]) - K.value @ H.value
+            value = I_KH @ self.value @ I_KH.T + K.value @ R.value @ K.T
         self.value = value
 
     @classmethod

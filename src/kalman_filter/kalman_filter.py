@@ -127,7 +127,7 @@ class KalmanFilter:
             x=self.x, 
             H=self.H
             )
-        PHT = self.P @ self.H.T
+        PHT = self.P.value @ self.H.T
         self.S.update(
             P=self.P, 
             H=self.H, 
