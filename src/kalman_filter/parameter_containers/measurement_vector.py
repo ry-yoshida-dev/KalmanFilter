@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .state_vector import StateVector
     from .measurement_matrix import MeasurementMatrix
+from ..array_types import FloatArray
 from .base import KFParameter
 
 @dataclass
@@ -16,7 +17,7 @@ class MeasurementVector(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the measurement vector (inherited from base).
         Shape: (len(format), 1)
     format: list[str]
@@ -65,7 +66,7 @@ class MeasurementVector(KFParameter):
         self, 
         x: StateVector, 
         H: MeasurementMatrix
-        ) -> np.ndarray:
+        ) -> FloatArray:
         """ Compute the innovation by the current state vector and measurement matrix.
 
         Parameters
@@ -77,7 +78,7 @@ class MeasurementVector(KFParameter):
 
         Returns
         -------
-        np.ndarray
+        FloatArray
             Innovation vector.
         """
         return self.value - H.state2measurement(x)
@@ -102,7 +103,7 @@ class MeasurementVector(KFParameter):
     def __setitem__(
         self, 
         key: str | int | list[int], 
-        value: float | np.ndarray
+        value: float | FloatArray
         ) -> None:
         """
         Set value with key of format or index like:
@@ -128,7 +129,7 @@ class MeasurementVector(KFParameter):
     def __getitem__(
         self, 
         key: str | int | list[int]
-        ) -> float | np.ndarray:
+        ) -> float | FloatArray:
         """
         Get value with key of format or index like:
         - z["confidence"]

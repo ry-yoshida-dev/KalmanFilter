@@ -2,6 +2,7 @@ from __future__ import annotations
 import numpy as np
 from dataclasses import dataclass
 
+from ..array_types import FloatWeights
 from .base import KFParameter
 
 @dataclass
@@ -12,21 +13,21 @@ class ProcessNoiseGain(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the process noise gain matrix (inherited from base).
     """
 
     @classmethod
     def create(
         cls, 
-        diagonal_values: list[float] | np.ndarray
+        diagonal_values: FloatWeights
         ) -> ProcessNoiseGain:
         """
         Create the process noise gain matrix.
 
         Parameters
         ----------
-        diagonal_values: list[float] | np.ndarray
+        diagonal_values: FloatWeights
             Diagonal values for the process noise gain matrix.
 
         Returns

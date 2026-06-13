@@ -1,6 +1,5 @@
-from __future__ import annotations
-
 from dataclasses import dataclass
+
 
 from .base import KFParameter
 
@@ -12,6 +11,6 @@ class ControlInputMatrix(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the control input matrix (inherited from base).
     """

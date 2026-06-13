@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from .state_vector import StateVector
     from .measurement_vector import MeasurementVector
 
+from ..array_types import FloatArray, FloatMatrixInput
 from .base import KFParameter
 
 @dataclass
@@ -18,7 +19,7 @@ class MeasurementMatrix(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the measurement matrix (inherited from base).
     """
 
@@ -27,7 +28,7 @@ class MeasurementMatrix(KFParameter):
         cls,
         state_vector: StateVector, 
         measurement_vector: MeasurementVector,
-        matrix_value: np.ndarray | list[float] | None = None
+        matrix_value: FloatMatrixInput = None
         ) -> MeasurementMatrix:
         """ 
         Create the measurement matrix.
@@ -67,7 +68,7 @@ class MeasurementMatrix(KFParameter):
     def state2measurement(
         self, 
         x: StateVector
-        ) -> np.ndarray:
+        ) -> FloatArray:
         """ 
         Project the state into measurement space.
         
@@ -83,7 +84,7 @@ class MeasurementMatrix(KFParameter):
 
         Returns
         -------
-        np.ndarray
+        FloatArray
             Value of MeasurementVector.
         """
         return self.value @ x.value
@@ -101,13 +102,13 @@ class MeasurementMatrix(KFParameter):
         return self.value.shape[0] == self.value.shape[1]
 
     @property
-    def pseudo_inverse_matrix(self) -> np.ndarray:
+    def pseudo_inverse_matrix(self) -> FloatArray:
         """
         Return the pseudo inverse of the measurement matrix.
         
         Returns
         -------
-        np.ndarray
+        FloatArray
             The pseudo inverse of the measurement matrix.
         """
         return np.linalg.pinv(self.value)

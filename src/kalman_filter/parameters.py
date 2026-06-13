@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 from dataclasses import dataclass, field, replace
 
+from .array_types import FloatMatrixInput
 from .parameter_containers import (
     StateVector,
     MeasurementVector,
@@ -35,7 +36,7 @@ class KFParameters:
     measurement_vector_format: list[str] | None
         Format of the measurement vector.
         If None, state_vector_format["static"] will be used as default.
-    measurement_matrix_value: np.ndarray | list[float] | None
+    measurement_matrix_value: FloatMatrixInput
         Value of the measurement matrix.
         If None, a rectangular identity matrix (np.eye(dim_z, dim_x)) will be used.
         When measurement_vector_format is None, this creates a square identity matrix
@@ -54,7 +55,7 @@ class KFParameters:
     P_values: list[int|float] = field(default_factory=lambda: [10, 10, 10, 10, 10000, 10000, 10000])
     Q_values: list[int|float] = field(default_factory=lambda: [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01*0.01])
     measurement_vector_format: list[str] | None = field(default_factory=lambda: None)
-    measurement_matrix_value: np.ndarray | list[float] | None = field(default_factory=lambda: None)
+    measurement_matrix_value: FloatMatrixInput = field(default_factory=lambda: None)
     dt: float = 1.0
     alpha: float = 1.0
 

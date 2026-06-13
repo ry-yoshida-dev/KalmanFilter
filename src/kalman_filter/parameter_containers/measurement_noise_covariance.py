@@ -2,6 +2,7 @@ from __future__ import annotations
 import numpy as np
 from dataclasses import dataclass
 
+from ..array_types import FloatWeights
 from .base import KFParameter
 
 @dataclass
@@ -14,7 +15,7 @@ class MeasurementNoiseCovariance(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the measurement noise covariance matrix (inherited from base).
     """
 
@@ -37,14 +38,14 @@ class MeasurementNoiseCovariance(KFParameter):
     @classmethod
     def create_matrix(
         cls,
-        weights: list[float] | np.ndarray, 
+        weights: FloatWeights, 
         scaling_factor: float = 1
         ) -> MeasurementNoiseCovariance:
         """ Create the measurement noise covariance matrix.
 
         Parameters
         ----------
-        weights: list[float] | np.ndarray
+        weights: FloatWeights
             Weights for the measurement noise covariance matrix.
         scaling_factor: float
             Scaling factor for the measurement noise covariance matrix.

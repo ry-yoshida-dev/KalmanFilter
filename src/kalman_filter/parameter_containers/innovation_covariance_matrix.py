@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from .error_covariance_matrix import ErrorCovarianceMatrix
     from .measurement_matrix import MeasurementMatrix
     from .measurement_noise_covariance import MeasurementNoiseCovariance
+from ..array_types import FloatArray
 from .base import KFParameter
 
 @dataclass
@@ -18,7 +19,7 @@ class InnovationCovarianceMatrix(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the innovation covariance matrix (inherited from base).
     """
 
@@ -27,7 +28,7 @@ class InnovationCovarianceMatrix(KFParameter):
         P: ErrorCovarianceMatrix, 
         H: MeasurementMatrix, 
         R: MeasurementNoiseCovariance, 
-        PHT: np.ndarray | None = None
+        PHT: FloatArray | None = None
         ) -> None:
         """ Update the innovation covariance matrix.
 
@@ -39,7 +40,7 @@ class InnovationCovarianceMatrix(KFParameter):
             Measurement matrix.
         R: MeasurementNoiseCovariance
             Measurement noise covariance matrix.
-        PHT: np.ndarray | None
+        PHT: FloatArray | None
             The matrix computed from P @ H.T.
             KalmanGain needs P @ H.T in the update process.
         """

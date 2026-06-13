@@ -14,6 +14,7 @@ It separates responsibilities into:
 
 | Component | Description |
 | --------- | ----------- |
+| [`array_types.py`](./array_types.py) | NumPy dtype aliases (`FloatArray`, `FloatWeights`, …) |
 | [`kalman_filter.py`](./kalman_filter.py) | Main predict/update workflow class (`KalmanFilter`) |
 | [`parameters.py`](./parameters.py) | Parameter dataclass (`KFParameters`) that builds internal matrices and vectors |
 | [`parameter_containers/`](./parameter_containers/README.md) | Typed container classes for state, covariance, gains, and matrix operations |

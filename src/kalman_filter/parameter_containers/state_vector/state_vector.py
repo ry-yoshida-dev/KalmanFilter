@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from ..control_input_matrix import ControlInputMatrix
     from ..control_input_vector import ControlInputVector
     from ..measurement_matrix import MeasurementMatrix
+from ...array_types import FloatArray
 from .index_map import KFIndexMap
 from ..base import KFParameter
 from ..utils import StateRole
@@ -22,7 +23,7 @@ class StateVector(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the state vector with shape (dim, 1) (inherited from base).
     format: dict[StateRole, list[str]]
         Format of the state vector.
@@ -74,7 +75,7 @@ class StateVector(KFParameter):
     def update(
         self, 
         K: KalmanGain, 
-        innovation: np.ndarray
+        innovation: FloatArray
         ) -> None:
         """ 
         Update the state vector from the current observation.
@@ -84,7 +85,7 @@ class StateVector(KFParameter):
         K: KalmanGain
             Kalman gain matrix.
             KalmanGain K and innovation are computed from the current observation.
-        innovation: np.ndarray
+        innovation: FloatArray
             Innovation vector that is difference of measurement vector and the predicted measurement vector.
             innovation is computed in MeasurementVector class.
         """
@@ -151,7 +152,7 @@ class StateVector(KFParameter):
     def __getitem__(
         self, 
         key: StateRole | tuple[StateRole, str]
-        ) -> float | np.ndarray:
+        ) -> float | FloatArray:
         """
         Access value with key of format or index like:
         - state_vector[StateRole.STATIC, "u"]
@@ -165,10 +166,10 @@ class StateVector(KFParameter):
 
         Returns
         -------
-        float | np.ndarray
+        float | FloatArray
             Value of the key.
             If key is a StateRole, return a scalar of that group.
-            If key is a tuple, return a np.ndarray with shape (len(group), 1).
+            If key is a tuple, return a FloatArray with shape (len(group), 1).
         """
         self._validate_key(key)
         if isinstance(key, tuple) and len(key) == 2:
@@ -183,7 +184,7 @@ class StateVector(KFParameter):
     def __setitem__(
         self, 
         key: StateRole | tuple[StateRole, str], 
-        new_value: float | np.ndarray
+        new_value: float | FloatArray
         ) -> None:
         """
         Set value with key of format or index like:
@@ -194,7 +195,7 @@ class StateVector(KFParameter):
         ----------
         key: str|tuple[StateRole, str]
             Key to set.
-        new_value: float|np.ndarray
+        new_value: float | FloatArray
             Value to set.
         """
         self._validate_key(key)

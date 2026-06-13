@@ -1,5 +1,6 @@
 from .kalman_filter import KalmanFilter
 from .parameters import KFParameters
+from .array_types import FloatArray, FloatDType, FloatMatrixInput, FloatWeights
 from .parameter_containers import (
     ControlInputMatrix,
     ControlInputVector,
@@ -19,6 +20,10 @@ from .parameter_containers import (
 __all__ = [
     "KalmanFilter",
     "KFParameters",
+    "FloatArray",
+    "FloatDType",
+    "FloatMatrixInput",
+    "FloatWeights",
     "ControlInputMatrix",
     "ControlInputVector",
     "ErrorCovarianceMatrix",

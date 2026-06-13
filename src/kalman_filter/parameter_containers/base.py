@@ -1,26 +1,30 @@
 from __future__ import annotations
+
 import numpy as np
 from abc import ABC
 from dataclasses import dataclass
+
+from ..array_types import FloatArray
+
 
 @dataclass
 class KFParameter(ABC):
     """
     Base container for Kalman filter parameters.
-    All subclasses hold a `value` array (np.ndarray).
+    All subclasses hold a `value` array (FloatArray).
     """
-    value: np.ndarray
+    value: FloatArray
     
     def replace_value(
         self, 
-        value: np.ndarray
+        value: FloatArray
         ) -> None:
         """ 
         Replace the value of the matrix by the new value.
 
         Parameters
         ----------
-        value: np.ndarray
+        value: FloatArray
             Value to register.
 
         Raises
@@ -31,17 +35,17 @@ class KFParameter(ABC):
             raise ValueError(f"Shape mismatch. Original shape: {self.value.shape}, new shape: {value.shape}")
         self.value = value
     
-    def __add__(self, other: "KFParameter") -> np.ndarray:
+    def __add__(self, other: "KFParameter") -> FloatArray:
         """ Matrix addition with + operator.
         """
         return self.value + other.value
     
-    def __sub__(self, other: "KFParameter") -> np.ndarray:
+    def __sub__(self, other: "KFParameter") -> FloatArray:
         """ Matrix subtraction with - operator.
         """
         return self.value - other.value
     
-    def __matmul__(self, other: "KFParameter") -> np.ndarray:
+    def __matmul__(self, other: "KFParameter") -> FloatArray:
         """ Matrix multiplication with @ operator.
         """
         return self.value @ other.value

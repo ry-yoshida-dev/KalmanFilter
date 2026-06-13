@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from .measurement_noise_covariance import MeasurementNoiseCovariance
     from .process_noise_gain import ProcessNoiseGain
 
+from ..array_types import FloatWeights
 from .base import KFParameter
 
 @dataclass
@@ -21,7 +22,7 @@ class ErrorCovarianceMatrix(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the error covariance matrix (inherited from base).
     """
 
@@ -87,13 +88,13 @@ class ErrorCovarianceMatrix(KFParameter):
     @classmethod
     def create_matrix(
         cls, 
-        weights: list[float] | np.ndarray
+        weights: FloatWeights
         ) -> ErrorCovarianceMatrix:
         """ Create the error covariance matrix.
 
         Parameters
         ----------
-        weights: list[float] | np.ndarray
+        weights: FloatWeights
             Weights for diagonal elements of the error covariance matrix.
 
         Returns

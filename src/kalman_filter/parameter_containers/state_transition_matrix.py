@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .state_vector import StateVector, KFIndexMap
+from ..array_types import FloatArray
 from .base import KFParameter
 from .utils import StateRole
 
@@ -17,7 +18,7 @@ class StateTransitionMatrix(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the state transition matrix (inherited from base).
     """
 
@@ -58,7 +59,7 @@ class StateTransitionMatrix(KFParameter):
 
     @staticmethod
     def _set_transition_coefficient(
-        F_value: np.ndarray, 
+        F_value: FloatArray, 
         index_map: KFIndexMap, 
         state_role: StateRole, 
         variable: str, 
@@ -69,7 +70,7 @@ class StateTransitionMatrix(KFParameter):
 
         Parameters:
         ----------
-        F_value: np.ndarray
+        F_value: FloatArray
             The state transition matrix.
         index_map: KFIndexMap
             The index map.

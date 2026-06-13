@@ -1,8 +1,9 @@
 from __future__ import annotations
 import numpy as np
 from dataclasses import dataclass
-from typing import Callable
+from collections.abc import Callable
 
+from ...array_types import FloatArray
 from .data_type import DataType
 from .container import KalmanTestData
 
@@ -71,7 +72,7 @@ class SampleDataCreator:
     def _define_function(
         self,
         data_type: DataType
-        ) -> Callable[[np.ndarray], np.ndarray]:
+        ) -> Callable[[FloatArray], FloatArray]:
         """
         Define the function to create the ground truth data.
 
@@ -82,7 +83,7 @@ class SampleDataCreator:
 
         Returns
         -------
-        Callable[[np.ndarray], np.ndarray]: 
+        Callable[[FloatArray], FloatArray]: 
             A callable function that takes the time array and returns the ground truth data.
         """
         match data_type:
@@ -95,38 +96,38 @@ class SampleDataCreator:
 
     def _create_linear_gt(
         self,
-        time: np.ndarray
-        ) -> np.ndarray:
+        time: FloatArray
+        ) -> FloatArray:
         """
         Create the linear ground truth data.
 
         Parameters
         ----------
-        time: np.ndarray
+        time: FloatArray
             The time array.
 
         Returns
         -------
-        np.ndarray: The ground truth data in linear format with shape (steps, ndim).
+        FloatArray: The ground truth data in linear format with shape (steps, ndim).
         """
         velocities = np.array([1.0 + i * 0.5 for i in range(self.ndim)])
         return self.initial_value + np.outer(time, velocities)
 
     def _create_sin_wave_gt(
         self,
-        time: np.ndarray
-        ) -> np.ndarray:
+        time: FloatArray
+        ) -> FloatArray:
         """
         Create the sin wave ground truth data.
 
         Parameters
         ----------
-        time: np.ndarray
+        time: FloatArray
             The time array.
 
         Returns
         -------
-        np.ndarray: The ground truth data in sin wave format with shape (steps, ndim).
+        FloatArray: The ground truth data in sin wave format with shape (steps, ndim).
         """
         ground_truth = np.zeros((self.steps, self.ndim))
         for i in range(self.ndim):
@@ -137,19 +138,19 @@ class SampleDataCreator:
 
     def _create_random_walk_gt(
         self,
-        time: np.ndarray
-        ) -> np.ndarray:
+        time: FloatArray
+        ) -> FloatArray:
         """
         Create the random walk ground truth data.
 
         Parameters
         ----------
-        time: np.ndarray
+        time: FloatArray
             The time array.
 
         Returns
         -------
-        np.ndarray: The ground truth data in random walk format with shape (steps, ndim).
+        FloatArray: The ground truth data in random walk format with shape (steps, ndim).
         """
         process_noise_std = 0.1
         ground_truth = np.zeros((self.steps, self.ndim))

@@ -1,4 +1,3 @@
-from __future__ import annotations
 from dataclasses import dataclass
 
 from .base import KFParameter
@@ -11,6 +10,6 @@ class ControlInputVector(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the control input vector (inherited from base).
     """

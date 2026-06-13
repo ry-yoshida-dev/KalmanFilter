@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .state_vector import StateVector
+from ..array_types import FloatWeights
 from .base import KFParameter
 
 @dataclass
@@ -18,20 +19,20 @@ class ProcessNoiseCovariance(KFParameter):
 
     Attributes:
     ----------
-    value: np.ndarray
+    value: FloatArray
         Value of the process noise covariance matrix (inherited from base).
     """
 
     @classmethod
     def create_matrix(
         cls, 
-        weights: list[float] | np.ndarray
+        weights: FloatWeights
         ) -> ProcessNoiseCovariance:
         """ Create the process noise covariance matrix.
 
         Parameters
         ----------
-        weights: list[float] | np.ndarray
+        weights: FloatWeights
             Weights for diagonal elements of the process noise covariance matrix.
 
         Returns
