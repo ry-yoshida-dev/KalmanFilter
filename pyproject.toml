@@ -1,28 +1,38 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "kalman_filter"
-version = "0.0.1"
+version = "0.1.0"
 authors = [
   { name = "Ryuto Yoshida" },
 ]
-description = "Configurable linear Kalman filter package with typed parameter containers."
+description = "Kalman filters (KF, EKF, UKF, and iterated variants) with directly accessible parameters."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
+license = "MIT"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "numpy",
+    "numpy>=1.26",
+    "scipy>=1.11",
 ]
 
 [project.urls]
 Homepage = "https://github.com/ry-yoshida-dev/KalmanFilter"
 "Bug Tracker" = "https://github.com/ry-yoshida-dev/KalmanFilter/issues"
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.20",
+    "mypy>=1.10",
+    "pytest>=8.0",
+    "ruff>=0.6",
+    "scipy-stubs>=1.14",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -30,9 +40,32 @@ where = ["src"]
 [tool.setuptools.package-data]
 kalman_filter = ["py.typed"]
 
-[project.optional-dependencies]
-dev = ["pytest>=8.0"]
+[tool.uv]
+exclude-newer = "7 days"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+# Test directories have no __init__.py; name their modules by path so conftest.py files do not collide.
+explicit_package_bases = true
+mypy_path = "src"
+
+[tool.basedpyright]
+include = ["src", "tests"]
+typeCheckingMode = "recommended"
+reportAny = false
+reportExplicitAny = false
+reportUnusedCallResult = false
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "SIM", "RUF"]
+
+[tool.ruff.lint.pep8-naming]
+# Standard Kalman filter notation.
+ignore-names = ["F", "Q", "H", "R", "S", "K", "P", "*_P"]

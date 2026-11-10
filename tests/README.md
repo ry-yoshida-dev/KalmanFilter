@@ -2,30 +2,22 @@
 
 ## Overview
 
-Pytest suite for the `kalman_filter` package. Covers float array typing, parameter validation, container behavior, the predict/update workflow, and synthetic data generation.
+Pytest suite, laid out like `src/kalman_filter`: one directory per package. Besides unit behaviour it checks the mathematics: closed-form results, agreement between filters that must coincide, NEES/NIS consistency on simulated data, and, in [`validation/`](./validation/README.md), agreement with references derived without the library.
 
 ## Components
 
 | Component | Description |
 | --------- | ----------- |
-| [`conftest.py`](./conftest.py) | Shared pytest fixtures |
-| [`helpers.py`](./helpers.py) | Test helpers (`make_measurement_vector`) |
-| [`test_array_types.py`](./test_array_types.py) | `FloatArray` alias and float covariance builders |
-| [`test_kf_parameters.py`](./test_kf_parameters.py) | `KFParameters` validation and initialization |
-| [`test_kalman_filter_workflow.py`](./test_kalman_filter_workflow.py) | `KalmanFilter` predict/update and clone behavior |
-| [`test_measurement_containers.py`](./test_measurement_containers.py) | `StateVector`, `MeasurementVector`, and `MeasurementMatrix` |
-| [`test_sample_data_creator.py`](./test_sample_data_creator.py) | `SampleDataCreator` output shapes and iteration |
+| [`conftest.py`](./conftest.py) | Shared constant-velocity models, filter, and trajectory sampler |
+| [`filters/`](./filters/README.md) | Kalman filters, their covariance forms, and sigma points |
+| [`models/`](./models/README.md) | Motion and measurement models |
+| [`parameters/`](./parameters/README.md) | Parameter containers and access to the state |
+| [`validation/`](./validation/README.md) | Independent reference solutions and ill-conditioned problems |
 
 ## Examples
 
-Run all tests from the package root:
-
 ```bash
 uv run pytest
-```
-
-Run a single module:
-
-```bash
-uv run pytest tests/test_kalman_filter_workflow.py
+uv run pytest tests/validation
+uv run mypy && uv run basedpyright
 ```
